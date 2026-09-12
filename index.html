@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Club Voleibol River · Portal</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap');
+
+  :root{
+    --sand:#F3EADA;
+    --ink:#1F2A2E;
+    --navy:#163B4E;
+    --teal:#1F7A8C;
+    --coral:#E85D3F;
+    --coral-deep:#C64A30;
+    --line:#C9BCA0;
+    --ok:#3F7857;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--sand);
+    color:var(--ink);
+    font-family:'Public Sans',sans-serif;
+    line-height:1.5;
+    min-height:100vh;
+  }
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px 80px;}
+
+  header.hero{padding:56px 0 8px;text-align:center;}
+  .badge{
+    display:inline-block;
+    background:var(--navy);
+    color:#fff;
+    font-size:0.72rem;
+    font-weight:600;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    border-radius:999px;
+    padding:5px 14px;
+    margin-bottom:18px;
+  }
+  h1{
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:2.6rem;
+    line-height:1.08;
+    margin:0 0 12px;
+    color:var(--navy);
+  }
+  .lead{color:#3C4A4E;max-width:52ch;margin:0 auto;font-size:1.05rem;}
+
+  .net{
+    height:14px;
+    background-image:repeating-linear-gradient(90deg,var(--line) 0 2px,transparent 2px 14px);
+    border-top:2px solid var(--line);
+    border-bottom:2px solid var(--line);
+    margin:36px auto;
+    opacity:.6;
+  }
+
+  section{margin-bottom:34px;}
+  h2{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:1.35rem;
+    color:var(--navy);
+    margin:0 0 14px;
+  }
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:520px){.grid{grid-template-columns:1fr;}}
+
+  .card{
+    background:#fff;
+    border:2px solid var(--line);
+    border-radius:6px;
+    padding:20px 18px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    transition:border-color .15s ease,transform .15s ease;
+  }
+  .card:hover{border-color:var(--teal);transform:translateY(-1px);}
+  .card .ico{font-size:1.7rem;}
+  .card h3{font-family:'Fraunces',serif;font-size:1.08rem;color:var(--navy);margin:0;}
+  .card p{font-size:0.9rem;color:#3C4A4E;margin:0;}
+  .card a.btn{
+    margin-top:auto;
+    text-decoration:none;
+    text-align:center;
+    padding:12px 14px;
+    border-radius:4px;
+    font-weight:600;
+    font-size:0.95rem;
+    color:#fff;
+    transition:background .15s ease;
+  }
+  .card a.btn:hover{opacity:.92;}
+  .btn-teal{background:var(--teal);}
+  .btn-coral{background:var(--coral);}
+  .btn-navy{background:var(--navy);}
+
+  .qr-lookup{
+    background:#fff;
+    border:2px dashed var(--teal);
+    border-radius:6px;
+    padding:16px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .qr-lookup label{font-weight:600;font-size:0.9rem;color:var(--navy);}
+  .qr-lookup input{
+    flex:1;
+    min-width:180px;
+    padding:10px 12px;
+    border:1.5px solid var(--line);
+    border-radius:4px;
+    font:inherit;
+    color:var(--ink);
+  }
+  .qr-lookup input:focus{outline:2px solid var(--teal);border-color:var(--teal);}
+  .qr-lookup button{
+    background:var(--navy);
+    color:#fff;
+    border:none;
+    border-radius:4px;
+    padding:11px 16px;
+    font:inherit;
+    font-weight:600;
+    cursor:pointer;
+  }
+  .qr-lookup button:disabled{background:#8a8272;cursor:not-allowed;}
+
+  .banner{
+    background:var(--coral-deep);
+    color:#fff;
+    padding:14px 18px;
+    border-radius:6px;
+    font-size:0.92rem;
+    margin-bottom:26px;
+    display:none;
+  }
+  .banner code{background:rgba(255,255,255,.18);padding:2px 6px;border-radius:4px;}
+
+  footer{margin-top:50px;text-align:center;color:#8a8272;font-size:0.85rem;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <span class="badge">Portal oficial</span>
+    <h1>🏐 Club Voleibol River</h1>
+    <p class="lead">Sistema de gestión deportiva del Club Deportivo de Voleibol River — Rionegro, Antioquia.</p>
+  </header>
+
+  <div class="net"></div>
+
+  <div class="banner" id="banner">
+    ⚠️ El <b>Web App de Apps Script</b> aún no está conectado. Pega tu URL <code>/exec</code> en
+    <code>config.js</code> (paso 2 del README) para habilitar asistencia, dashboard y encuesta.
+  </div>
+
+  <section>
+    <h2>Para deportistas</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="ico">📍</div>
+        <h3>Registrar asistencia por QR</h3>
+        <p>Escanea tu código QR o entra directo a registrar tu asistencia (entreno, partido o evento).</p>
+        <a class="btn btn-teal" data-app="asistencia" href="#">Registrar asistencia</a>
+      </div>
+      <div class="card">
+        <div class="ico">📋</div>
+        <h3>Encuesta de clases de vóleibol</h3>
+        <p>Ayúdanos a definir el programa de clases: precio, horario y nivel. Menos de 2 minutos.</p>
+        <a class="btn btn-coral" href="./encuesta_voley.html">Responder encuesta</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Para la directiva</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="ico">📊</div>
+        <h3>Dashboard del Club</h3>
+        <p>Total de afiliados, recaudación del mes, membresías vencidas y asistencias de los últimos 30 días.</p>
+        <a class="btn btn-navy" data-app="dashboard" href="#">Abrir dashboard</a>
+      </div>
+      <div class="card">
+        <div class="ico">🎟️</div>
+        <h3>Ver código QR del afiliado</h3>
+        <p>Ingresa el ID del afiliado para descargar o imprimir su carné QR.</p>
+        <div class="qr-lookup">
+          <label for="qrId">ID:</label>
+          <input id="qrId" type="text" placeholder="ABCD0000XYZ" autocomplete="off">
+          <button id="qrBtn">Buscar QR</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Club Deportivo de Voleibol River — Rionegro, Antioquia · Reconocimiento Deportivo IMER<br>
+    Portal alojado en GitHub Pages (disponible 24/7).
+  </footer>
+</div>
+
+<script src="./config.js"></script>
+<script>
+  var APP = (window.CLUB_VOLEIBOL && window.CLUB_VOLEIBOL.appUrl) || "";
+
+  function bannerApp(show){
+    document.getElementById('banner').style.display = show ? 'block' : 'none';
+  }
+
+  function configurarEnlace(el, page){
+    if (APP) {
+      el.href = APP + '?page=' + page;
+      el.target = '_blank';
+    } else {
+      el.href = '#';
+      el.addEventListener('click', function(ev){ ev.preventDefault(); bannerApp(true); });
+    }
+  }
+
+  document.querySelectorAll('[data-app]').forEach(function(el){
+    configurarEnlace(el, el.getAttribute('data-app'));
+  });
+
+  var qrBtn = document.getElementById('qrBtn');
+  var qrId = document.getElementById('qrId');
+
+  function buscarQR(){
+    var id = qrId.value.trim();
+    if (!id) return;
+    if (!APP) {
+      bannerApp(true);
+      return;
+    }
+    window.open(APP + '?page=qr&id=' + encodeURIComponent(id), '_blank');
+  }
+  qrBtn.addEventListener('click', buscarQR);
+  qrId.addEventListener('keydown', function(e){ if (e.key === 'Enter') buscarQR(); });
+
+  if (APP) bannerApp(false);
+</script>
+</body>
+</html>

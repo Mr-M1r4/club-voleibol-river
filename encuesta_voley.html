@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encuesta · Clases de vóleibol</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap');
+
+  :root{
+    --sand: #F3EADA;
+    --sand-deep: #E9DBC1;
+    --ink: #1F2A2E;
+    --navy: #163B4E;
+    --teal: #1F7A8C;
+    --coral: #E85D3F;
+    --coral-deep: #C64A30;
+    --line: #C9BCA0;
+    --ok: #3F7857;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--sand);
+    color:var(--ink);
+    font-family:'Public Sans', sans-serif;
+    line-height:1.5;
+    padding:0 0 60px;
+  }
+  .wrap{max-width:600px;margin:0 auto;padding:0 20px;}
+
+  /* Net divider — a nod to a volleyball net line */
+  .net{
+    height:14px;
+    background-image: repeating-linear-gradient(90deg, var(--line) 0 2px, transparent 2px 14px);
+    border-top:2px solid var(--line);
+    border-bottom:2px solid var(--line);
+    margin:32px 0;
+    opacity:.6;
+  }
+
+  header.hero{
+    padding:44px 0 8px;
+  }
+  .kicker{
+    color:var(--coral-deep);
+    font-weight:600;
+    font-size:0.95rem;
+    margin:0 0 6px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:2.1rem;
+    line-height:1.15;
+    margin:0 0 14px;
+    color:var(--navy);
+  }
+  .lead{
+    font-size:1.02rem;
+    color:#3C4A4E;
+    max-width:46ch;
+  }
+
+  h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.3rem;
+    color:var(--navy);
+    margin:0 0 14px;
+  }
+
+  .plans{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin-bottom:6px;
+  }
+  @media (max-width:480px){
+    .plans{grid-template-columns:1fr;}
+  }
+  .plan{
+    background:#fff;
+    border:2px solid var(--line);
+    border-radius:4px;
+    padding:18px 16px;
+    position:relative;
+  }
+  .plan .price{
+    font-family:'Fraunces', serif;
+    font-size:1.5rem;
+    font-weight:700;
+    color:var(--navy);
+  }
+  .plan .unit{font-size:0.85rem;color:#6b6558;font-weight:500;}
+  .plan .detail{margin-top:8px;font-size:0.92rem;color:#3C4A4E;}
+  .plan .per-class{margin-top:6px;font-size:0.82rem;color:var(--teal);font-weight:600;}
+
+  fieldset{
+    border:none;
+    padding:0;
+    margin:0 0 30px;
+  }
+  legend{
+    font-weight:600;
+    font-size:1.02rem;
+    color:var(--navy);
+    padding:0;
+    margin-bottom:12px;
+  }
+  .hint{font-size:0.85rem;color:#6b6558;margin:-6px 0 14px;}
+
+  .option{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    background:#fff;
+    border:1.5px solid var(--line);
+    border-radius:4px;
+    padding:12px 14px;
+    margin-bottom:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .option:hover{border-color:var(--teal);}
+  .option input{margin-top:3px;accent-color:var(--teal);flex-shrink:0;}
+  .option.checked{border-color:var(--teal);background:#EFF7F8;}
+  .option label{cursor:pointer;font-size:0.96rem;}
+
+  input[type="text"], input[type="email"], input[type="tel"], input[type="number"], textarea, select{
+    width:100%;
+    padding:11px 12px;
+    border:1.5px solid var(--line);
+    border-radius:4px;
+    font-family:inherit;
+    font-size:0.96rem;
+    background:#fff;
+    color:var(--ink);
+  }
+  input:focus, textarea:focus, select:focus{
+    outline:2px solid var(--teal);
+    outline-offset:1px;
+    border-color:var(--teal);
+  }
+  .field{margin-bottom:14px;}
+  .field label.tag{
+    display:block;
+    font-weight:600;
+    font-size:0.88rem;
+    margin-bottom:5px;
+    color:#3C4A4E;
+  }
+
+  .reveal{
+    display:none;
+    background:#fff;
+    border:1.5px dashed var(--teal);
+    border-radius:6px;
+    padding:18px 16px;
+    margin-top:4px;
+  }
+  .reveal.show{display:block;}
+
+  .submit-row{margin-top:36px;}
+  button.primary{
+    width:100%;
+    background:var(--coral);
+    color:#fff;
+    border:none;
+    padding:15px 18px;
+    font-size:1.02rem;
+    font-weight:600;
+    font-family:inherit;
+    border-radius:4px;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+  button.primary:hover{background:var(--coral-deep);}
+  button.primary:disabled{background:#c8beae;cursor:not-allowed;}
+
+  .error-msg{
+    color:var(--coral-deep);
+    font-size:0.85rem;
+    margin-top:6px;
+    display:none;
+  }
+
+  .thanks{
+    display:none;
+    text-align:center;
+    padding:60px 0;
+  }
+  .thanks.show{display:block;}
+  .thanks .check{
+    width:56px;height:56px;border-radius:50%;
+    background:var(--ok);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 20px;font-size:1.6rem;
+  }
+  .thanks h2{color:var(--ok);}
+  .thanks p{color:#3C4A4E;max-width:38ch;margin:0 auto;}
+
+  .status-note{
+    font-size:0.78rem;
+    color:#8a8272;
+    margin-top:26px;
+    border-top:1px solid var(--line);
+    padding-top:14px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap" id="formView">
+
+  <header class="hero">
+    <p class="kicker">Estudio de mercado</p>
+    <h1>¿Te apuntarías a clases de vóleibol?</h1>
+    <p class="lead">Las clases se dictarán en el escenario renovado de La Lela. Estamos definiendo el precio y el horario del programa, y tu respuesta toma menos de 2 minutos.</p>
+  </header>
+
+  <div class="net"></div>
+
+  <form id="surveyForm" novalidate>
+
+    <h2>Estas son las dos opciones que estamos evaluando</h2>
+    <div class="plans">
+      <div class="plan">
+        <div class="price">$120.000<span class="unit"> COP/mes</span></div>
+        <div class="detail">8 clases al mes<br>(2 por semana)</div>
+        <div class="per-class">≈ $15.000 por clase</div>
+      </div>
+      <div class="plan">
+        <div class="price">$150.000<span class="unit"> COP/mes</span></div>
+        <div class="detail">12 clases al mes<br>(3 por semana)</div>
+        <div class="per-class">≈ $12.500 por clase</div>
+      </div>
+    </div>
+
+    <fieldset>
+      <legend>1. ¿Cuál de estas opciones pagarías?</legend>
+      <div class="option" data-for="p1">
+        <input type="radio" name="plan" id="p1" value="Plan A - 120.000/8 clases" required>
+        <label for="p1">Plan A — $120.000 por 8 clases al mes</label>
+      </div>
+      <div class="option" data-for="p2">
+        <input type="radio" name="plan" id="p2" value="Plan B - 150.000/12 clases">
+        <label for="p2">Plan B — $150.000 por 12 clases al mes</label>
+      </div>
+      <div class="option" data-for="p4">
+        <input type="radio" name="plan" id="p4" value="Ninguna al precio actual">
+        <label for="p4">Ninguna</label>
+      </div>
+      <div class="error-msg" id="planError">Por favor selecciona una opción.</div>
+    </fieldset>
+
+    <!-- Reveals when they'd pay -->
+    <div class="reveal" id="contactReveal">
+      <h2 style="margin-top:0;">¡Genial! Cuéntanos cómo contactarte</h2>
+      <div class="field">
+        <label class="tag" for="name">Nombre completo</label>
+        <input type="text" id="name" name="name">
+      </div>
+      <div class="field">
+        <label class="tag" for="phone">Celular / WhatsApp</label>
+        <input type="tel" id="phone" name="phone" placeholder="300 000 0000">
+      </div>
+      <div class="field">
+        <label class="tag" for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email">
+      </div>
+      <div class="field">
+        <label class="tag" for="zone">Barrio o zona donde vives</label>
+        <input type="text" id="zone" name="zone">
+      </div>
+    </div>
+
+    <!-- Reveals when they wouldn't pay / maybe -->
+    <div class="reveal" id="priceReveal">
+      <h2 style="margin-top:0;">Ayúdanos a entender el precio</h2>
+      <div class="field">
+        <label class="tag" for="fairPrice">¿Cuánto pagarías por mes por un programa así?</label>
+        <input type="number" id="fairPrice" name="fairPrice" placeholder="Ej: 90.000">
+      </div>
+      <div class="field">
+        <label class="tag" for="whyNot">¿Qué te haría dudar o decir que no?</label>
+        <textarea id="whyNot" name="whyNot" rows="2" placeholder="Precio, horario, ubicación, tiempo..."></textarea>
+      </div>
+    </div>
+
+    <div class="net"></div>
+
+    <h2>Un poco más sobre ti</h2>
+
+    <fieldset>
+      <legend>2. Tu nivel en vóleibol</legend>
+      <select name="level" id="level">
+        <option value="">Selecciona una opción</option>
+        <option>Nunca he jugado</option>
+        <option>Principiante</option>
+        <option>Intermedio</option>
+        <option>Avanzado / competitivo</option>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <legend>3. Horario en el que preferirías tomar clases</legend>
+      <div class="hint">El horario de la noche es exclusivo para adultos</div>
+      <select name="schedule" id="schedule">
+        <option value="">Selecciona una opción</option>
+        <option>Mañana · 10:00 a 11:30 am</option>
+        <option>Tarde · 3:30 a 5:00 pm</option>
+        <option>Tarde · 5:00 a 6:30 pm</option>
+        <option>Noche · 6:30 a 8:00 pm (solo adultos)</option>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <legend>4. Categoría por edad</legend>
+      <select name="age" id="age">
+        <option value="">Selecciona una opción</option>
+        <option>Infantil (8 a 11 años)</option>
+        <option>Prejuvenil (12 a 14 años)</option>
+        <option>Juvenil (15 a 17 años)</option>
+        <option>Adultos (18 años en adelante)</option>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <legend>5. ¿Qué te motiva principalmente a tomar clases de vóleibol?</legend>
+      <!-- numeración: 2 nivel, 3 horario, 4 categoría edad, 5 motivación, 6 comentarios -->
+      <div class="hint">Elige la opción que más te representa</div>
+      <select name="motivation" id="motivation">
+        <option value="">Selecciona una opción</option>
+        <option>Hacer ejercicio y estar en forma</option>
+        <option>Aprender y mejorar mi técnica</option>
+        <option>Socializar y conocer gente</option>
+        <option>Competir en torneos o ligas</option>
+        <option>Otro</option>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <legend>6. ¿Algo más que quieras contarnos? (opcional)</legend>
+      <textarea name="comments" id="comments" rows="3" placeholder="Sugerencias, dudas, lo que sea..."></textarea>
+    </fieldset>
+
+    <div class="submit-row">
+      <button type="submit" class="primary" id="submitBtn">Enviar respuesta</button>
+    </div>
+
+    <p class="status-note">Tus respuestas se usan solo para este estudio de mercado interno.</p>
+  </form>
+</div>
+
+<div class="wrap thanks" id="thanksView">
+  <div class="check">✓</div>
+  <h2>¡Gracias por responder!</h2>
+  <p>Tu opinión nos ayuda a diseñar mejor el programa de clases. Si dejaste tus datos, te contactaremos pronto.</p>
+</div>
+
+<script>
+  // URL del Web App de Apps Script (termina en /exec).
+  // Auto-configurada desde config.js (si está presente en el mismo sitio).
+  let SHEET_URL = "";
+  try {
+    if (window.CLUB_VOLEIBOL && window.CLUB_VOLEIBOL.appUrl) {
+      SHEET_URL = window.CLUB_VOLEIBOL.appUrl;
+    }
+  } catch (e) {}
+  // Respaldos:
+  if (!SHEET_URL) {
+    SHEET_URL = "PEGA_AQUI_TU_URL_DE_APPS_SCRIPT"; // si no hay config.js, pega aquí tu URL /exec
+  }
+
+  const form = document.getElementById('surveyForm');
+  const contactReveal = document.getElementById('contactReveal');
+  const priceReveal = document.getElementById('priceReveal');
+  const planError = document.getElementById('planError');
+
+  function updateOptionStyles(){
+    document.querySelectorAll('.option').forEach(opt => {
+      const input = opt.querySelector('input');
+      opt.classList.toggle('checked', input.checked);
+    });
+  }
+
+  form.querySelectorAll('input[name="plan"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      updateOptionStyles();
+      planError.style.display = 'none';
+      const val = radio.value;
+      if(val.startsWith('Plan A') || val.startsWith('Plan B')){
+        contactReveal.classList.add('show');
+        priceReveal.classList.remove('show');
+      } else {
+        contactReveal.classList.remove('show');
+        priceReveal.classList.add('show');
+      }
+    });
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const planChosen = form.querySelector('input[name="plan"]:checked');
+    if(!planChosen){
+      planError.style.display = 'block';
+      window.scrollTo({top: form.offsetTop - 20, behavior: 'smooth'});
+      return;
+    }
+
+    const data = {
+      plan: planChosen.value,
+      name: form.name.value.trim(),
+      phone: form.phone.value.trim(),
+      email: form.email.value.trim(),
+      zone: form.zone.value.trim(),
+      fairPrice: form.fairPrice.value.trim(),
+      whyNot: form.whyNot.value.trim(),
+      level: form.level.value,
+      schedule: form.schedule.value,
+      age: form.age.value,
+      motivation: form.motivation.value,
+      comments: form.comments.value.trim(),
+      submittedAt: new Date().toISOString()
+    };
+
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando...';
+
+    if(SHEET_URL && SHEET_URL.startsWith('http')){
+      try{
+        await fetch(SHEET_URL + '?action=encuesta', {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {'Content-Type': 'text/plain;charset=utf-8'},
+          body: JSON.stringify(data)
+        });
+      }catch(err){
+        console.error('No se pudo enviar a la Google Sheet:', err);
+      }
+    }
+
+    document.getElementById('formView').style.display = 'none';
+    document.getElementById('thanksView').classList.add('show');
+  });
+</script>
+
+</body>
+</html>
